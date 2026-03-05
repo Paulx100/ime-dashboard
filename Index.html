@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IME Healthcare Portal</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Inter, sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0c0f1a;
+        overflow: hidden;
+        color: white;
+      }
+
+      /* Background glow */
+
+      body::before {
+        content: "";
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        background: radial-gradient(circle, #ff4b4b33, #6c5cff33, #ff5df533);
+        filter: blur(120px);
+        animation: float 12s infinite alternate ease-in-out;
+      }
+
+      @keyframes float {
+        from {
+          transform: translate(-150px, -100px);
+        }
+        to {
+          transform: translate(150px, 100px);
+        }
+      }
+
+      /* Container */
+
+      .container {
+        display: flex;
+        width: 900px;
+        height: 560px;
+        background: rgba(20, 24, 45, 0.6);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      /* Left panel */
+
+      .left {
+        flex: 1;
+        background: linear-gradient(135deg, #ff4b4b, #6c5cff, #ff5df5);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 50px;
+      }
+
+      .logo {
+        width: 120px;
+        height: 120px;
+        border-radius: 20px;
+        border: 2px dashed rgba(255, 255, 255, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        margin-bottom: 25px;
+      }
+
+      .left h1 {
+        font-size: 32px;
+        margin-bottom: 15px;
+      }
+
+      .left p {
+        opacity: 0.9;
+        line-height: 1.6;
+      }
+
+      /* Right panel */
+
+      .right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 50px;
+        position: relative;
+      }
+
+      .tabs {
+        display: flex;
+        margin-bottom: 35px;
+      }
+
+      .tabs button {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        background: none;
+        color: #aaa;
+        font-size: 15px;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: 0.3s;
+      }
+
+      .tabs button.active {
+        color: white;
+        border-bottom: 2px solid #ff4b4b;
+      }
+
+      /* Form */
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      input {
+        background: #12162a;
+        border: 1px solid #22294a;
+        padding: 14px;
+        border-radius: 10px;
+        color: white;
+        font-size: 14px;
+        outline: none;
+        transition: 0.3s;
+      }
+
+      input:focus {
+        border-color: #6c5cff;
+        box-shadow: 0 0 10px #6c5cff55;
+      }
+
+      /* Button */
+
+      .btn {
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        background: linear-gradient(90deg, #ff4b4b, #6c5cff, #ff5df5);
+        color: white;
+        font-size: 15px;
+        transition: 0.3s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Footer text */
+
+      .small {
+        font-size: 12px;
+        opacity: 0.6;
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      /* Toggle forms */
+
+      #signupForm {
+        display: none;
+      }
+
+      /* Futuristic floating lights */
+
+      .light {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ff4b4b;
+        filter: blur(6px);
+        animation: blink 2s infinite alternate;
+      }
+
+      .light:nth-child(1) {
+        top: 30px;
+        right: 30px;
+      }
+      .light:nth-child(2) {
+        bottom: 40px;
+        left: 40px;
+        background: #6c5cff;
+      }
+      .light:nth-child(3) {
+        top: 80px;
+        left: 80px;
+        background: #ff5df5;
+      }
+
+      @keyframes blink {
+        from {
+          opacity: 0.2;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="left">
+        <div class="logo">
+          <img src="https://limegreen-camel-220251.hostingersite.com/wp-content/uploads/2026/02/Logo-InstantMedicalEcosystem-White-.png" 
+          alt="IME Logo" width="120px">
+        </div>
+
+        <h1>IME Healthcare</h1>
+        <p>
+          Secure AI-powered healthcare analytics dashboard.<br />
+          Monitor patient vitals, analytics and medical insights.
+        </p>
+      </div>
+
+      <div class="right">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+
+        <div class="tabs">
+          <button class="active" onclick="switchTab('login')">Login</button>
+          <button onclick="switchTab('signup')">Sign Up</button>
+        </div>
+
+        <form id="loginForm">
+          <input
+            type="email"
+            id="loginEmail"
+            placeholder="Email Address"
+            required
+          />
+
+          <input type="password" placeholder="Password" />
+
+          <button type="submit" class="btn">Access Dashboard</button>
+
+          <div class="small">Demo mode: any valid email will work </br> 
+          Your email of <strong>INFORMATION</strong> is not saved! This is only for DEMO!</div>
+        </form>
+
+        <form id="signupForm">
+          <input type="text" placeholder="Full Name" />
+
+          <input type="email" id="signupEmail" placeholder="Email Address" />
+
+          <input type="password" placeholder="Create Password" />
+
+          <button type="submit" class="btn">Create Account</button>
+
+          <div class="small">Demo account will redirect to dashboard</div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function switchTab(tab) {
+        const login = document.getElementById("loginForm");
+        const signup = document.getElementById("signupForm");
+        const buttons = document.querySelectorAll(".tabs button");
+
+        buttons.forEach((b) => b.classList.remove("active"));
+
+        if (tab === "login") {
+          login.style.display = "flex";
+          signup.style.display = "none";
+          buttons[0].classList.add("active");
+        } else {
+          login.style.display = "none";
+          signup.style.display = "flex";
+          buttons[1].classList.add("active");
+        }
+      }
+
+      /* Demo login */
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("loginEmail").value;
+
+          const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (valid.test(email)) {
+            window.location.href = "dashboard.html";
+          } else {
+            alert("Please enter a valid email.");
+          }
+        });
+
+      /* Demo signup */
+
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("signupEmail").value;
+
+          const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (valid.test(email)) {
+            window.location.href = "dashboard.html";
+          } else {
+            alert("Please enter a valid email.");
+          }
+        });
+    </script>
+  </body>
+</html>
