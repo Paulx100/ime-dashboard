@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Healthcare Cost Estimator (Demo)</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #050505;
+        color: white;
+      }
+
+      .header {
+        text-align: center;
+        padding: 30px;
+      }
+
+      .header h1 {
+        font-size: 32px;
+        background: linear-gradient(90deg, red, blue, pink, purple);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .disclaimer {
+        background: #111;
+        border: 1px solid red;
+        padding: 12px;
+        width: 70%;
+        margin: auto;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+
+      .container {
+        display: flex;
+        gap: 25px;
+        padding: 40px;
+      }
+
+      .card {
+        flex: 1;
+        background: #0d0d0d;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 0 15px rgba(255, 0, 150, 0.2);
+      }
+
+      .card h2 {
+        margin-top: 0;
+        color: pink;
+      }
+
+      label {
+        display: block;
+        margin-top: 15px;
+        font-size: 14px;
+      }
+
+      select,
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 6px;
+        border: none;
+        background: #151515;
+        color: white;
+      }
+
+      .resultBox {
+        background: #151515;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 8px;
+      }
+
+      .resultBox span {
+        float: right;
+        color: #00d4ff;
+      }
+
+      .total {
+        font-size: 22px;
+        color: pink;
+        margin-top: 20px;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 12px;
+        color: #aaa;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>Healthcare Cost Estimator</h1>
+
+      <div class="disclaimer">
+        ⚠ DEMO TOOL — This calculator provides **estimated healthcare costs for
+        demonstration purposes only**. Actual medical charges vary by provider,
+        insurance plan, and clinical needs.
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- PATIENT DETAILS -->
+
+      <div class="card">
+        <h2>Patient Details</h2>
+
+        <label>Age</label>
+        <input type="number" id="age" value="30" oninput="calculate()" />
+
+        <label>Insurance Status</label>
+        <select id="insurance" onchange="calculate()">
+          <option value="insured">Insured</option>
+          <option value="uninsured">Uninsured</option>
+        </select>
+
+        <label>Visit Type</label>
+        <select id="visit" onchange="calculate()">
+          <option value="75">Virtual Visit</option>
+          <option value="150">Primary Care</option>
+          <option value="350">Specialist Visit</option>
+          <option value="1200">Emergency Visit</option>
+        </select>
+
+        <label>Diagnostics</label>
+        <select id="diagnostic" onchange="calculate()">
+          <option value="0">None</option>
+          <option value="120">Blood Test</option>
+          <option value="300">X-Ray</option>
+          <option value="900">MRI Scan</option>
+        </select>
+
+        <label>Additional Services</label>
+        <select id="service" onchange="calculate()">
+          <option value="0">None</option>
+          <option value="200">Medication</option>
+          <option value="500">Minor Procedure</option>
+          <option value="800">Outpatient Procedure</option>
+        </select>
+      </div>
+
+      <!-- COST BREAKDOWN -->
+
+      <div class="card">
+        <h2>Medical Cost Breakdown</h2>
+
+        <div class="resultBox">
+          Consultation
+          <span id="consult">$0</span>
+        </div>
+
+        <div class="resultBox">
+          Diagnostics
+          <span id="diag">$0</span>
+        </div>
+
+        <div class="resultBox">
+          Additional Services
+          <span id="serv">$0</span>
+        </div>
+
+        <div class="resultBox">
+          Total Medical Cost
+          <span id="totalCost">$0</span>
+        </div>
+      </div>
+
+      <!-- PATIENT ESTIMATE -->
+
+      <div class="card">
+        <h2>Your Estimated Cost</h2>
+
+        <div class="resultBox">
+          Insurance Coverage
+          <span id="insurancePay">$0</span>
+        </div>
+
+        <div class="resultBox">
+          Estimated Out-of-Pocket
+          <span id="patientPay">$0</span>
+        </div>
+
+        <div class="total">
+          Estimated You Pay: <span id="patientTotal">$0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Transparent Healthcare Pricing Demo • Designed to reduce surprise medical
+      bills
+    </div>
+
+    <script>
+      function calculate() {
+        let consultation = Number(document.getElementById("visit").value);
+        let diagnostic = Number(document.getElementById("diagnostic").value);
+        let service = Number(document.getElementById("service").value);
+
+        let total = consultation + diagnostic + service;
+
+        let insuranceType = document.getElementById("insurance").value;
+
+        let insuranceCoverage = 0;
+        let patientCost = total;
+
+        if (insuranceType === "insured") {
+          insuranceCoverage = total * 0.7;
+          patientCost = total - insuranceCoverage;
+        }
+
+        document.getElementById("consult").innerHTML = "$" + consultation;
+        document.getElementById("diag").innerHTML = "$" + diagnostic;
+        document.getElementById("serv").innerHTML = "$" + service;
+
+        document.getElementById("totalCost").innerHTML = "$" + total;
+
+        document.getElementById("insurancePay").innerHTML =
+          "-$" + insuranceCoverage.toFixed(0);
+
+        document.getElementById("patientPay").innerHTML =
+          "$" + patientCost.toFixed(0);
+
+        document.getElementById("patientTotal").innerHTML =
+          "$" + patientCost.toFixed(0);
+      }
+
+      calculate();
+    </script>
+  </body>
+</html>
